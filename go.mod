@@ -1,4 +1,4 @@
-module tokenmanager
+module github.com/marketconnect/tokenmanager
 
 go 1.22.0
 
