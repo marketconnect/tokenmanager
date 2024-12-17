@@ -70,13 +70,13 @@ func (manager *JWTManager) VerifyWithScopes(accessToken string, language string)
 	}
 
 	// decode scopes
-	scopes := DecodeScopes(claims.ScopesMask, language)
+	scopes := manager.DecodeScopes(claims.ScopesMask, language)
 
 	return &claims.UserId, &claims.EndDate, scopes, nil
 }
 
 // DecodeScopes decode a bitmask of scopes in a list of permissions
-func DecodeScopes(scopesMask int, language string) []string {
+func (manager *JWTManager) DecodeScopes(scopesMask int, language string) []string {
 	languageDictionary := map[string]map[string]string{
 		"free":    {"ru": "Общий", "en": "Free"},
 		"premium": {"ru": "Премиум", "en": "Premium"},
@@ -94,7 +94,7 @@ func DecodeScopes(scopesMask int, language string) []string {
 	return scopes
 }
 
-func EncodeScopes(scopes []string) int {
+func (manager *JWTManager) EncodeScopes(scopes []string) int {
 	scopeMap := map[string]int{
 		"free":    ScopeFree,
 		"premium": ScopePremium,
